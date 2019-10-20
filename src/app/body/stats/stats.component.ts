@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MooddataService } from 'src/app/services/mooddata.service';
 declare const Plotly;
 
 @Component({
@@ -10,13 +11,10 @@ export class StatsComponent implements OnInit {
 
   moodObject = {};
   moodObjectKeys = [];
+  moodCount:any = {}
   
   
-
-  
-  
-
-  constructor() { }
+  constructor(public moodData: MooddataService) { }
 
   getWidth() {
   return Math.max(
@@ -73,12 +71,16 @@ getHeight() {
         let tempScore = 0;
         this.moodObject[ObjKey].forEach(entry=>{
           tempScore += moodScore[entry.mood];
+          if(this.moodCount.hasOwnProperty(entry.mood)){
+            this.moodCount[entry.mood] += 1;
+          }
+          else{
+            this.moodCount[entry.mood] = 1;
+          }
         });
         avgScore = Math.ceil(tempScore/this.moodObject[ObjKey].length);
         avgScores.push(inverseMoodScore[avgScore]);
       });
-
-      
 
       var trace1 = {
       x: this.moodObjectKeys,
@@ -89,7 +91,6 @@ getHeight() {
     
 
     let data = [trace1];
-
     let layout = {
       //width: this.getWidth() * 0.9,
       //height: this.getHeight() * 0.5,
@@ -104,8 +105,41 @@ getHeight() {
       //paper_bgcolor: '#7f7f7f',
       // /plot_bgcolor: '#c7c7c7'
     }
+    Plotly.newPlot('trackerDiv', data, layout, {showSendToCloud: true, displayModeBar: false});
 
-    Plotly.newPlot('myDiv', data, layout, {showSendToCloud: true, displayModeBar: false});
+    data = [];
+    Object.keys(this.moodCount).forEach(mood=>{
+      let tempTrace = {
+        orientation: 'h',
+        x: [this.moodCount[mood]],
+        y: [mood],
+        type: 'bar',
+        labels: Object.keys(this.moodData.colorMap),
+        marker: {
+          color: this.moodData.colorMap[mood]
+        }
+      };
+      data.push(tempTrace);
+    });
+    
+    
+    let layout2 = {
+      //width: this.getWidth() * 0.9,
+      //height: this.getHeight() * 0.5,
+      height:300,
+      showlegend: false,
+      margin: {
+        l: 50,
+        r: 50,
+        b: 50,
+        t: 50,
+        pad: 4
+      },
+      
+      //paper_bgcolor: '#7f7f7f',
+      // /plot_bgcolor: '#c7c7c7'
+    }
+    Plotly.newPlot('countDiv', data, layout2, {showSendToCloud: true, displayModeBar: false});
       
     }
   }

@@ -9,6 +9,13 @@ export class MooddataService {
   currentDate = this.formatDate(new Date());
   currentTime = new Date().getHours() + ":" + new Date().getMinutes();
   currFeeling = '';
+  colorMap = {
+    'ecstatic': '#EDA479',
+    'happy': 'rgb(2, 163, 96)',
+    'meh': '#9AD9DB',
+    'sad': '#A3A7B0',
+    'crying': '#2c345c',
+  }
 
   constructor() { }
 

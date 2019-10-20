@@ -20,8 +20,5 @@ export class CalendarBlockComponent implements OnInit {
 
   isWeekend = (date: NgbDate) =>  this.calendar.getWeekday(date) >= 6;
 
-  formatDate(event:any){
-    console.log(event);
-  }
 
 }

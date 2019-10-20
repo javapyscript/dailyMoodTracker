@@ -1,27 +1,42 @@
 <div class="heading" style="text-align: center">
     <h3 style="margin:1rem">How are you feeling right now?</h3>
-    <div class="happy dateBlock">
-        <form class="form-inline">
-            <div class="form-group">
-                <div class="input-group">
-                <input class="form-control" [placeholder]="this.moodData.currentDate" (select)="this.formatDate($event)"
-                        name="dp" [dayTemplate]="customDay" [(ngModel)]="this.moodData.currentDate" ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-primary" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
-                    
-                </div>
-                </div>
+    <div class="happy">
+        <div class="dateBlock">
+            <div class="md-form">
+                
+                <input (click)="d.toggle()" mdbInput class="form-control" [placeholder]="this.moodData.currentDate"
+                            name="dp" [(ngModel)]="this.moodData.currentDate" ngbDatepicker #d="ngbDatepicker">
+                <!--label for="form1" class="">Example label</label-->
             </div>
-        </form>
-        <ng-template #customDay let-date let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
-            <span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused"
-                    [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth" [class.text-muted]="disabled">
-                {{ date.day }}
-            </span>
-        </ng-template>
+            <!--form class="form-inline">
+                <div class="form-group" >
+                    <div class="input-group">
+                    <input (click)="d.toggle()" class="form-control" [placeholder]="this.moodData.currentDate" (select)="this.formatDate($event)"
+                            name="dp" [dayTemplate]="customDay" [(ngModel)]="this.moodData.currentDate" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                        
+                    </div>
+                    </div>
+                </div>
+            </form>
+            <ng-template #customDay let-date let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
+                <span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused"
+                        [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth" [class.text-muted]="disabled">
+                    {{ date.day }}
+                </span>
+            </ng-template-->
+        </div>
+        
         <div class="timeBlock">
-            <input [ngxTimepicker]="picker" [(ngModel)]="this.moodData.currentTime">
-            <ngx-material-timepicker #picker></ngx-material-timepicker>
+            
+            <div class="md-form">
+                <input readonly name="timeControl" class="form-control" [(ngModel)]="this.moodData.currentTime" [ngxTimepicker]="picker">
+                <!--label for="form1" class="">Example label</label-->
+                <ngx-material-timepicker #picker></ngx-material-timepicker>
+            </div>
+            
+            
         </div>
     </div>
 </div>

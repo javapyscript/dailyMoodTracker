@@ -1,17 +1,13 @@
 <mdb-card style="margin:1rem;">
-    <!--Card image-->
-    
-    <!--Card content-->
     <mdb-card-title>
-        <h4  style="padding:1.25rem;background-color: #9AC8EB !important">{{this.currentDate}}</h4>
+        <h4  style="padding:1rem;color:white" [ngStyle]="{
+            'backgroundColor': this.headerColor
+        }">
+            {{this.currentDate.toUpperCase()}}
+            
+        </h4>
         </mdb-card-title>
     <mdb-card-body style="padding-top:0">
-
-        <!--Title-->
-        
-
         <app-daily-entry [entryData]="entry" *ngFor="let entry of entries"></app-daily-entry>
-
-        
     </mdb-card-body>
 </mdb-card>

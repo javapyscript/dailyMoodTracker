@@ -1,14 +1,30 @@
 .happy{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     
 }
 
-.dateBlock .timeBlock{
+input{
+  text-align: center;
+  border: 1px solid purple;
+  
+}
+
+.dateBlock {
     margin: 1rem;
+    display: flex;
+    align-items: flex-start;
+    //width:50%;
     //flex:1;
+}
+
+.timeBlock{
+  margin: 1rem;
+  //width:100%;
+  display: flex;
+    align-items: flex-start;
 }
 
 .heading{
@@ -35,3 +51,9 @@
     border-radius: 1rem;
     color: white;
   }
+
+
+.md-form{
+  margin-top: 0;
+  margin-bottom: 0;
+}
