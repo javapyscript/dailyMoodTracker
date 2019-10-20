@@ -1,0 +1,41 @@
+
+<div class="container">
+    
+    <div class="row" style="height: 40vh;">
+        <!--button (click)="this.datepicker.show()"></button>
+        <button (click)="this.datepicker.hide()"></button-->
+        
+        <!--mat-form-field>
+            <input matInput [matDatePicker] = "myDatePicker">
+            <mat-datepicker-toggle [for]="myDatePicker" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #myDatePicker></mat-datepicker>
+        </mat-form-field-->
+        <!--input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker-->
+        <app-calendar-block></app-calendar-block>
+    </div>
+    <div class="row" style="height: 20vh">
+        <app-emoji-block style="width:100%;"></app-emoji-block>
+      
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="md-form textForm">
+          <input mdbInput type="text" id="form1" class="form-control" [(ngModel)]="this.moodData.currFeeling">
+          <label for="form1" class="">Notes</label>
+        </div>
+            <div class="row flexBox">
+              <div class="col-6">
+                  <button routerLink="/journal" style="margin:1rem" class="btn btn-outline-primary" type="button">Skip to dashboard</button>
+              </div>
+              <div class="col-6">
+                  <button style="margin:1rem" class="btn btn-outline-primary" (click)="this.saveFeeling()" type="button">Save and continue</button>
+              </div>
+              
+            </div>
+      </div>
+    </div>
+    
+  </div>
+  

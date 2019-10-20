@@ -1,0 +1,38 @@
+<div class="container" style="margin:0; padding:0">
+    <div class="row" style="margin:0.25rem;display:flex; flex-direction:row; align-items:center; justify-content:flex-start;">
+            <div class="col-2" style="padding: 0">
+                <ng-container *ngIf="this.entryData.mood==='ecstatic'">
+                    <i class="far fa-grin-hearts fa-3x" [ngClass]="this.entryData.mood"></i>
+                </ng-container>
+                <ng-container *ngIf="this.entryData.mood==='happy'">
+                    <i class="far fa-grin fa-3x" [ngClass]="this.entryData.mood"></i>
+                </ng-container>
+                <ng-container *ngIf="this.entryData.mood==='meh'">
+                    <i class="far fa-meh fa-3x" [ngClass]="this.entryData.mood"></i>
+                </ng-container>
+                <ng-container *ngIf="this.entryData.mood==='sad'">
+                    <i class="far fa-sad-tear fa-3x" [ngClass]="this.entryData.mood"></i>
+                </ng-container>
+                <ng-container *ngIf="this.entryData.mood==='crying'">
+                    <i class="far fa-sad-cry fa-3x" [ngClass]="this.entryData.mood"></i>
+                </ng-container>
+            </div>
+            <div class="col-5" style="text-align:start;display:flex; flex-direction:column; align-items:center; justify-content:flex-start;">
+                <div [ngClass]="this.entryData.mood" style="text-align:start; width:100%">
+                    {{this.entryData.mood.toUpperCase()}}
+                </div>
+                <div style="text-align:start; width:100%">
+                        {{this.entryData.time}}
+                </div>
+            </div>
+            
+            
+    </div>
+    <div class="row">
+        <div class="col-12" style="margin:0.5rem; align-self: flex-start">
+                {{this.entryData.notes}}
+            </div>
+    </div>
+
+</div>
+<hr style="margin-top:0">

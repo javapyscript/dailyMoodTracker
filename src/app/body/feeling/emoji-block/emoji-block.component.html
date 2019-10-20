@@ -1,0 +1,38 @@
+<div class="row" style="width:100%;margin:0">
+        <div class="happy" style="width:20%">
+                <i class="fa-grin-hearts fa-3x" style="color: #EDA479" 
+                [ngClass]="{'fas':this.moodData.currentMood === 'ecstatic',
+                            'far': this.moodData.currentMood !== 'ecstatic'}" 
+                (click)="changeCurrentMood('ecstatic')"></i>
+                <span>Ecstatic</span>
+            </div>
+            <div class="happy" style="width:20%">
+                <i class="fa-grin fa-3x" style="color: #98D4BB"
+                [ngClass]="{'fas':this.moodData.currentMood === 'happy',
+                            'far': this.moodData.currentMood !== 'happy'}" 
+                (click)="changeCurrentMood('happy')"></i>
+                <span>Happy</span>
+            </div>
+            <div class="happy" style="width:20%">
+                <i class="fa-meh fa-3x" style="color: #9AD9DB"
+                    [ngClass]="{'fas':this.moodData.currentMood === 'meh',
+                                'far': this.moodData.currentMood !== 'meh'}" 
+                (click)="changeCurrentMood('meh')"></i>
+                <span>Meh</span>
+            </div>
+            <div class="happy" style="width:20%">
+                <i class="fa-sad-tear fa-3x" style="color: #A3A7B0"
+                [ngClass]="{'fas':this.moodData.currentMood === 'sad',
+                            'far': this.moodData.currentMood !== 'sad'}" 
+                (click)="changeCurrentMood('sad')"></i>
+                <span>Sad</span>
+            </div>
+            <div class="happy" style="width:20%">
+                <i class="fa-sad-cry fa-3x" style="color: #2c345c"
+                [ngClass]="{'fas':this.moodData.currentMood === 'crying',
+                            'far': this.moodData.currentMood !== 'crying'}" 
+                (click)="changeCurrentMood('crying')"></i>
+                <span>Crying</span>
+            </div>
+</div>
+ 

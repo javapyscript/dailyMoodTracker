@@ -1,0 +1,7 @@
+<div class="row">
+    <div class="col-12">
+        <!--full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins"></full-calendar-->
+            <app-day-card [date]="day" [entries]="this.moodObject[day]" *ngFor="let day of this.moodObjectKeys" style="margin:1rem;"></app-day-card>
+        
+    </div>
+</div>
