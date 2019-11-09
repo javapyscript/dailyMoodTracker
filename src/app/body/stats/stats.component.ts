@@ -12,6 +12,7 @@ export class StatsComponent implements OnInit {
   moodObject = {};
   moodObjectKeys = [];
   moodCount:any = {}
+  avgScores = [];
   
   
   constructor(public moodData: MooddataService) { }
@@ -36,6 +37,25 @@ getHeight() {
   );
 }
 
+getDayName(dateStr){
+  let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  let d = new Date(dateStr);
+  let dayName = days[d.getDay()];
+  return dayName;
+}
+
+sortDates(){
+  this.moodObject = JSON.parse(localStorage.getItem('moodJournal'));
+  this.moodObjectKeys = Object.keys(this.moodObject);
+  this.moodObjectKeys = this.moodObjectKeys.sort(
+    function (a, b) {
+        a = a.toString().split('-');
+        b = b.toString().split('-');
+        return a[0] - b[0] || a[1] - b[1] || a[2] - b[2];
+      }
+    );
+}
+
   ngOnInit() {
     let moodScore = {
       "ecstatic":5,
@@ -50,22 +70,18 @@ getHeight() {
       4: "happy",
       3: "meh",
       2: "sad",
-      1: "crying"
+      1: "crying",
+      0: "no data"
     }
+
+
 
     if (localStorage.getItem("moodJournal") !== null) {
       
-      this.moodObject = JSON.parse(localStorage.getItem('moodJournal'));
-      this.moodObjectKeys = Object.keys(this.moodObject);
-      this.moodObjectKeys = this.moodObjectKeys.sort(
-        function (a, b) {
-            a = a.toString().split('-');
-            b = b.toString().split('-');
-            return a[0] - b[0] || a[1] - b[1] || a[2] - b[2];
-          }
-        );
+      this.sortDates();
+      console.log("These are moodobjectkeys");
       console.log(this.moodObjectKeys);
-      let avgScores = []
+      //let avgScores = []
       this.moodObjectKeys.forEach(ObjKey=>{
         let avgScore = 0;
         let tempScore = 0;
@@ -79,12 +95,12 @@ getHeight() {
           }
         });
         avgScore = Math.ceil(tempScore/this.moodObject[ObjKey].length);
-        avgScores.push(inverseMoodScore[avgScore]);
+        this.avgScores.push(inverseMoodScore[avgScore]);
       });
 
       var trace1 = {
       x: this.moodObjectKeys,
-      y: avgScores,
+      y: this.avgScores,
       type: 'scatter',
     };
 
@@ -102,6 +118,13 @@ getHeight() {
         t: 50,
         pad: 4
       },
+      yaxis: {
+      //title: "Idea",
+      //tickmode: "array",
+      //tickvals: ['crying', 'sad', 'meh', 'happy', 'ecstatic'],
+      //ticktext: ['Crying', 'Sad', 'Meh', 'Happy', 'Ecstatic']
+      categoryarray: ['crying', 'sad', 'meh', 'happy', 'ecstatic']
+    }
       //paper_bgcolor: '#7f7f7f',
       // /plot_bgcolor: '#c7c7c7'
     }
@@ -135,11 +158,104 @@ getHeight() {
         t: 50,
         pad: 4
       },
+      yaxis: {
+      //title: "Idea",
+      //tickmode: "array",
+      //tickvals: ['crying', 'sad', 'meh', 'happy', 'ecstatic'],
+      //ticktext: ['Crying', 'Sad', 'Meh', 'Happy', 'Ecstatic']
+      automargin: true,
+      //tickvals: [0,1,2,3,4,5],
+      //ticktext: ["No data","Crying","Sad", "Meh", "Happy", "Ecstatic"],
+      //range: [1, 5],
+    categoryarray: ['crying', 'sad', 'meh', 'happy', 'ecstatic']
+    }
       
       //paper_bgcolor: '#7f7f7f',
       // /plot_bgcolor: '#c7c7c7'
     }
     Plotly.newPlot('countDiv', data, layout2, {showSendToCloud: true, displayModeBar: false});
+
+    //Day chart
+    data = [];
+
+    let days = {'Sunday':{sum: 0, count:0, avg: 0} ,
+                'Monday':{sum: 0, count:0, avg: 0},
+                'Tuesday':{sum: 0, count:0, avg: 0},
+                'Wednesday':{sum: 0, count:0, avg: 0},
+                'Thursday':{sum: 0, count:0, avg: 0},
+                'Friday':{sum: 0, count:0, avg: 0},
+                'Saturday':{sum: 0, count:0, avg: 0}};
+
+    this.moodObjectKeys.forEach((dat,index)=>{
+      let day = this.getDayName(dat);
+      if (days.hasOwnProperty(day)){
+        days[day].sum = days[day].sum + moodScore[this.avgScores[index]];
+        days[day].count += 1;
+        days[day].avg = Math.ceil(days[day].sum/days[day].count);
+      }
+      else{
+        days[day] = {sum: this.avgScores[index], count:1, avg: moodScore[this.avgScores[index]]}
+      }
+    });
+    console.log(days);
+    let daysIndex = [];
+    let moodByDayIndex = [];
+    Object.keys(days).forEach(day_=>{
+      //daysIndex.push(day_);
+      //moodByDayIndex.push(days[day_].avg);
+      console.log(day_);
+      console.log(days[day_].avg);
+      let tempTrace = {
+        //orientation: 'h',
+        x: [day_],
+        y: [inverseMoodScore[days[day_].avg]],
+        type: 'bar',
+        labels: Object.keys(this.moodData.colorMap),
+        marker: {
+          color: this.moodData.colorMap[inverseMoodScore[days[day_].avg]]
+        }
+      };
+      data.push(tempTrace);
+    });
+
+    
+    
+    let layout3 = {
+      
+      height:300,
+      showlegend: false,
+      margin: {
+        l: 50,
+        r: 50,
+        b: 50,
+        t: 50,
+        pad: 4
+      },
+      xaxis: {
+      //title: "Idea",
+      tickmode: "array",
+      automargin: true,
+      tickvals: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      ticktext: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      
+    },
+    yaxis: {
+      //title: "Idea",
+      //tickmode: "array",
+      automargin: true,
+      //tickvals: [0,1,2,3,4,5],
+      //ticktext: ["No data","Crying","Sad", "Meh", "Happy", "Ecstatic"],
+      range: [0, 5],
+    categoryarray: ["no data", 'crying', 'sad', 'meh', 'happy', 'ecstatic']
+      //type: 'category'
+      
+      
+    }
+      
+      //paper_bgcolor: '#7f7f7f',
+      // /plot_bgcolor: '#c7c7c7'
+    }
+    Plotly.newPlot('dayDiv', data, layout3, {showSendToCloud: true, displayModeBar: false});
       
     }
   }

@@ -7,9 +7,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  feeling = true;
+  stats = false;
+  journal = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  activateStats(){
+    this.stats = true;
+    this.feeling = false;
+    this.journal = false;
+    console.log("stats activated");
+
+  }
+
+  activateFeeling(){
+    this.stats = false;
+    this.feeling = true;
+    this.journal = false;
+
+  }
+
+  activateJournal(){
+    this.stats = false;
+    this.feeling = false;
+    this.journal = true;
+
   }
 
 }
