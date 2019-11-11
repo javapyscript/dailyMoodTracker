@@ -1,5 +1,8 @@
 <div class="row">
     <div class="col-12">
+            <div *ngIf="this.noData" style="height:90vh;display:flex; align-items:center; justify-content:center">
+                <h2 style="text-align:center">No logs found in the journal. Start adding some entries to see the log grow.</h2>
+            </div>
         <!--full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins"></full-calendar-->
             <app-day-card [date]="day" [entries]="this.moodObject[day]" *ngFor="let day of this.moodObjectKeys" style="margin:1rem;"></app-day-card>
         

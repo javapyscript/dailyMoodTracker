@@ -27,7 +27,7 @@
               <button routerLink="/journal" style="width:100%; color: purple; border:1px solid purple" class="btn btn-outline" type="button">Skip to dashboard</button>
           </div>
           <div class="col-6">
-              <button routerLink="/journal" style="width:100%;color: purple; border:1px solid purple" class="btn btn-outline" (click)="this.saveFeeling()" type="button">Save and continue</button>
+              <button style="width:100%;color: purple; border:1px solid purple" class="btn btn-outline" (click)="this.saveFeeling()" type="button">Save and continue</button>
           </div>
           
         </div>
@@ -38,4 +38,25 @@
   <br>
   <br>
   <br>
+
+
+<div mdbModal #errorModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="errorModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Oops</h4>
+      </div>
+      <div class="modal-body">
+        Please click on an emoticon to save emotion. ;)
+      </div>
+      <div class="modal-footer">
+        <button size="sm" type="button" mdbBtn color="purple" class="waves-light" aria-label="Close" (click)="errorModal.hide()" mdbWavesEffect>Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
   

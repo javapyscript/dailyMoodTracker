@@ -17,6 +17,10 @@ export class MooddataService {
     'crying': '#2c345c',
   }
 
+  feeling = true;
+  stats = false;
+  journal = false;
+
   constructor() { }
 
   formatDate(date) {

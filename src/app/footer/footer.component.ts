@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MooddataService } from '../services/mooddata.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,34 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  feeling = true;
-  stats = false;
-  journal = false;
+  
 
-  constructor() { }
+  constructor(public moodData:MooddataService) { }
 
   ngOnInit() {
   }
 
   activateStats(){
-    this.stats = true;
-    this.feeling = false;
-    this.journal = false;
+    this.moodData.stats = true;
+    this.moodData.feeling = false;
+    this.moodData.journal = false;
     console.log("stats activated");
 
   }
 
   activateFeeling(){
-    this.stats = false;
-    this.feeling = true;
-    this.journal = false;
+    this.moodData.stats = false;
+    this.moodData.feeling = true;
+    this.moodData.journal = false;
 
   }
 
   activateJournal(){
-    this.stats = false;
-    this.feeling = false;
-    this.journal = true;
+    this.moodData.stats = false;
+    this.moodData.feeling = false;
+    this.moodData.journal = true;
 
   }
 

@@ -13,6 +13,7 @@ export class StatsComponent implements OnInit {
   moodObjectKeys = [];
   moodCount:any = {}
   avgScores = [];
+  noData = false;
   
   
   constructor(public moodData: MooddataService) { }
@@ -57,6 +58,12 @@ sortDates(){
 }
 
   ngOnInit() {
+
+    this.moodData.stats = true;
+    this.moodData.feeling = false;
+    this.moodData.journal = false;
+
+
     let moodScore = {
       "ecstatic":5,
       "happy":4,
@@ -77,7 +84,7 @@ sortDates(){
 
 
     if (localStorage.getItem("moodJournal") !== null) {
-      
+      this.noData = false;
       this.sortDates();
       console.log("These are moodobjectkeys");
       console.log(this.moodObjectKeys);
@@ -257,6 +264,10 @@ sortDates(){
     }
     Plotly.newPlot('dayDiv', data, layout3, {showSendToCloud: true, displayModeBar: false});
       
+    }
+
+    else{
+      this.noData = true;
     }
   }
 

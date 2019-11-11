@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MooddataService } from 'src/app/services/mooddata.service';
 import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDirective } from 'angular-bootstrap-md';
+import { Router } from '@angular/router';
 declare var Datepickk: any;
 
 @Component({
@@ -12,7 +14,10 @@ export class FeelingComponent implements OnInit {
   
   datepicker;
 
-  constructor(public moodData: MooddataService, public calendar: NgbCalendar) { }
+  @ViewChild('errorModal', {static: false})
+  errorModal: ModalDirective;
+
+  constructor(public moodData: MooddataService, public calendar: NgbCalendar, private router: Router) { }
 
   ngOnInit() {
     /*var highlight = {
@@ -51,6 +56,11 @@ export class FeelingComponent implements OnInit {
    */
 
 
+  this.moodData.stats = false;
+    this.moodData.feeling = true;
+    this.moodData.journal = false;
+
+
                
   }
 
@@ -62,26 +72,33 @@ export class FeelingComponent implements OnInit {
       
     }
     
-    
+    if(this.moodData.currentMood === ''){
+          this.errorModal.show();
+          return;
+    }
     if (localStorage.getItem("moodJournal") !== null) {
       moodObject = JSON.parse(localStorage.getItem('moodJournal'));
+      
+     
       if (moodObject.hasOwnProperty(this.moodData.currentDate)){
         moodObject[this.moodData.currentDate].push({
-          'time': this.moodData.currentTime,
-           'mood': this.moodData.currentMood,
-           'notes': this.moodData.currFeeling,
-           
+        'time': this.moodData.currentTime,
+          'mood': this.moodData.currentMood,
+          'notes': this.moodData.currFeeling,
+          
         })
       }
       else{
         moodObject[this.moodData.currentDate] = [
           {'time': this.moodData.currentTime,
-           'mood': this.moodData.currentMood,
-           'notes': this.moodData.currFeeling,
-           
+          'mood': this.moodData.currentMood,
+          'notes': this.moodData.currFeeling,
+          
           }
         ]
       }
+      
+      
     }
     else{
       
@@ -93,6 +110,7 @@ export class FeelingComponent implements OnInit {
         }
       ]
     }
+    this.router.navigateByUrl('/journal');
     localStorage.setItem('moodJournal', JSON.stringify(moodObject));
     this.moodData.currFeeling = '';
   }
