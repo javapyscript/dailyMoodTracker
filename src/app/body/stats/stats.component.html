@@ -1,5 +1,7 @@
 <div class="containerStyle">
-  
+  <div *ngIf="this.noData">
+    <h4>No data to chart. Start adding some entries to see the chart growing.</h4>
+  </div>
   <mdb-card style="margin:1rem; width: 100%">
     <mdb-card-title>
         <h4>
@@ -8,10 +10,11 @@
         </h4>
         </mdb-card-title>
     <mdb-card-body style="padding-top:0">
-        <div *ngIf="!this.noData" id="trackerDiv" style="width:90%"></div>
-        <div *ngIf="this.noData" style="text-align:center">
-          No data to chart. Start adding some entries to see the chart growing.
-        </div>
+    
+      <div id="trackerDiv" style="width:90%"></div>
+      
+    
+       
     </mdb-card-body>
   </mdb-card>
   <mdb-card style="margin:1rem;width: 100%">
@@ -22,10 +25,8 @@
         </h4>
         </mdb-card-title>
     <mdb-card-body style="padding-top:0">
-        <div *ngIf="!this.noData" id="countDiv" style="width:90%"></div>
-        <div *ngIf="this.noData">
-          No data to chart. Start adding some entries to see the chart growing.
-        </div>
+        <div id="countDiv" style="width:90%"></div>
+        
     </mdb-card-body>
   </mdb-card>
   <mdb-card style="margin:1rem;width: 100%">
@@ -36,10 +37,8 @@
         </h4>
         </mdb-card-title>
     <mdb-card-body style="padding-top:0">
-        <div *ngIf="!this.noData" id="dayDiv" style="width:90%"></div>
-        <div *ngIf="this.noData">
-          No data to chart. Start adding some entries to see the chart growing.
-        </div>
+        <div id="dayDiv" style="width:90%"></div>
+        
     </mdb-card-body>
   </mdb-card>
     <!--br>

@@ -147,7 +147,8 @@ sortDates(){
         labels: Object.keys(this.moodData.colorMap),
         marker: {
           color: this.moodData.colorMap[mood]
-        }
+        },
+        name: mood
       };
       data.push(tempTrace);
     });
@@ -220,7 +221,8 @@ sortDates(){
         labels: Object.keys(this.moodData.colorMap),
         marker: {
           color: this.moodData.colorMap[inverseMoodScore[days[day_].avg]]
-        }
+        },
+        name: inverseMoodScore[days[day_].avg]
       };
       data.push(tempTrace);
     });
